@@ -309,16 +309,25 @@ export const makeApartmentRequest = async (
   next: NextFunction
 ) => {
   try {
-    const apartment = await Apartment.findById(req.body.apartment) as IApartment;
+    const apartment = await Apartment.findById(req.body.id) as IApartment;
+    const user = await User.findById(req.user?._id) as IUser;
     if(!apartment) return res.status(404).json({ success: false, data: "Apartment not found" });
     const registerRequest = {
       apartment: apartment._id,
       user: req.user?._id,
-      meetingDate: req.body.meetingDate,
+      meetingDate: req.body.date,
     };
     const request = await ApartmentRequest.create(registerRequest) as IApartmentRequest;
     await request.save();
-    res.status(200).json({ success: true, data: request });
+    const data = {
+      name:user.name+" "+user.fatherName +" "+user.grandFatherName,
+      email:user.email,
+      phone:user.phoneNumber,
+      date:req.body.date,
+      id:apartment._id,
+      status:request.status
+    }
+    res.status(200).json({ success: true, data: data });
   } catch (error) {
     res.status(400).json({ success: false, data: (error as Error).message });
   }
@@ -362,6 +371,7 @@ export const addVisitor = async (
     res.status(400).json({ success: false, data: (error as Error).message });
   }
 }
+
 
 
 

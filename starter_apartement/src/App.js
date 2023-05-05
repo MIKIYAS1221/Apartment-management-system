@@ -9,10 +9,10 @@ import HomePage from "./pages/HomePage/HomePage";
 import { RecoilRoot } from "recoil";
 import PendingPage from "./pages/pendingPage/pending";
 import VerifyEmail from "./pages/verifyemail/verifyEmail";
-import AvalableRooms from "./pages/apartment/ListavailableRooms";
+import AvailableApartments from "./pages/apartment/ListavailableRooms";
 import ForgetPasswordPage from "./pages/ForgotPassWord/forgotPassWord";
 import ResetPasswordPage from "./pages/ResetPassword/resetPassWord";
-import SingleRoomPage from "./pages/apartment/RoomsPage";
+import SingleApartmentPage from "./pages/apartment/RoomsPage";
 
 const isAuthenticated = () => {
   console.log("is logged in: ", localStorage.getItem("authToken") !== null);
@@ -30,8 +30,8 @@ function App() {
           <Route path="/pending" element={<PendingPage />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/" element={<LandingPage />} />
-          <Route path="/availableRooms" element={<AvalableRooms />} />
-          <Route path="/rooms" element={<SingleRoomPage />} />
+          <Route path="/available-apartments" element={<AvailableApartments />} />
+          <Route path="/apartment/:id" element={<SingleApartmentPage />} />
 
           <Route path="/forget-password" element={<ForgetPasswordPage />} />
           <Route

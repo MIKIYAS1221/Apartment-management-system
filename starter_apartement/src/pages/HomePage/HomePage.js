@@ -30,7 +30,6 @@ import Navbar from "../LandingPage/components/Navbar";
 import MaintenanceRequest from "./TabPages/MaintenanceRequest";
 import AddVisitors from "./TabPages/AddVisitors";
 
-
 const HomePage = () => {
   const [activeTab, setActiveTab] = useRecoilState(activeTabState);
   const [activeSubTab, setActiveSubTab] = useState(activeSubTabState);
@@ -54,7 +53,6 @@ const HomePage = () => {
     }));
   };
 
-
   const handleSignOut = () => {
     // remove authToken and loggedInUser from local storage
     localStorage.removeItem("authToken");
@@ -68,7 +66,6 @@ const HomePage = () => {
     <div className="flex h-screen bg-gray-100">
       <div className="fixed top-0 left-0 flex flex-col h-screen py-4 bg-white border-r border-gray-200 w-60">
         <div className="px-4">
-
           <h1 className="text-lg font-bold">Apartment Project</h1>
         </div>
         <nav className="flex-1 mt-8 space-y-2">
@@ -78,14 +75,15 @@ const HomePage = () => {
             onClick={handleTabClick}
             isActive={activeTab === "Home"}
           />
-          <TabItem
-            tabName="Applications"
-            Icon={Clipboard}
-            onClick={handleTabClick}
-            isActive={activeTab === "Applications"}
-          />
-          {signedInUser && ['manager', 'owner'].includes(signedInUser.role) && (
+          
+          {signedInUser && ["manager", "owner"].includes(signedInUser.role) && (
             <>
+              <TabItem
+                tabName="Register Requests"
+                Icon={Clipboard}
+                onClick={handleTabClick}
+                isActive={activeTab === "Register Requests"}
+              />
               <TabItem
                 tabName="AllApartments"
                 Icon={Clipboard}
@@ -110,39 +108,6 @@ const HomePage = () => {
                 onClick={handleTabClick}
                 isActive={activeTab === "AddApartment"}
               />
-              {/* <TabItem
-                tabName="Manager"
-                Icon={List}
-                onClick={handleTabClick}
-                isActive={activeTab === "Manager"}
-              >
-                <TabItem
-                  tabName="Application 1"
-                  onClick={() => handleSubTabClick("Application 1")}
-                  isActive={activeSubTab === "Application 1"}
-                />
-                <TabItem
-                  tabName="Application 2"
-                  onClick={() => handleSubTabClick("Application 2")}
-                  isActive={activeSubTab === "Application 2"}
-                />
-                <TabItem
-                  tabName="Application 3"
-                  onClick={() => handleSubTabClick("Application 3")}
-                  isActive={activeSubTab === "Application 3"}
-                />
-                <TabItem
-                  tabName="AddApartments"
-                  Icon={Clipboard}
-                  onClick={() => {
-                    handleTabClick("Manager");
-                    handleSubTabClick("AddApartments");
-                  }}
-                  isActive={
-                    activeTab === "Manager" && activeSubTab === "AddApartments"
-                  }
-                />
-              </TabItem> */}
             </>
           )}
           <TabItem
@@ -175,7 +140,7 @@ const HomePage = () => {
       <div className="ml-60 w-full overflow-auto">
         {activeTab === "Home" && <Home />}
         {activeTab === "Profile" && <Profile />}
-        {activeTab === "Applications" && <Applications />}
+        {activeTab === "RegisterRequests" && <Applications />}
         {activeTab === "AllApartments" && <AllApartmentss />}
         {activeTab === "RentedApartments" && <RentedApartments />}
         {activeTab === "Tenants" && <Tenants />}
@@ -195,7 +160,6 @@ const HomePage = () => {
 
         {activeTab === "MaintenanceRequest" && <MaintenanceRequest />}
         {activeTab === "AddVisitors" && <AddVisitors />}
-
       </div>
     </div>
   );

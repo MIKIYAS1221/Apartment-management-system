@@ -3,18 +3,38 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Footer from "../LandingPage/components/Footer";
 import Navbar from "../LandingPage/components/Navbar";
+import { getApartment } from "../../services/apartmentService";
+import { useRecoilValue } from "recoil";
+import { loggedInUserState } from "../../recoil_state";
+import { makeApartmentRequest } from "../../services/authService";
+
 // import BookingWidget from "./BookingWidget";
 
-export default function SingleRoomPage() {
-  //const { id } = useParams();
-  const [room, setRoom] = useState(null);
+export default function SingleApartmentPage() {
+  const { id } = useParams();
+  const [apartment, setApartments] = useState(null);
   const [showAllPhotos, SetAllPhotos] = useState(false);
+  const [meeting, setMeeting] = useState("");
+
+  const signedInUser = useRecoilValue(loggedInUserState);
+
+
+
+  
   useEffect(() => {
-    // if (!id) return;
-    // axios.get("/home-place/" + id).then(({ data }) => {
-    //   setPlace(data);
-    // });
-  }, []);
+    getApartment(id).then((data) => {
+      setApartments(data.data);
+    });
+
+  }, [id]);
+
+  const submitHandler = () => {
+    makeApartmentRequest(id,meeting).then((data) => {
+      console.log(data.data);
+    }
+    )
+
+  }
   if (showAllPhotos) {
     return (
       <div className="absolute bg-gray-100 inset-0 text-black mx-auto">
@@ -41,31 +61,32 @@ export default function SingleRoomPage() {
               </svg>
             </button>
           </div>
-          {/* {place.photos.length > 0 &&
-            place.photos.map((photo) => ("*/}
-          <div className="w-full">
-            <img
-              src={`https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cm9vbXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60`}
-              alt=""
-              className="w-full aspect-auto"
-            />
-          </div>
+          {apartment.images.length > 0 &&
+            apartment.images.map((image) => (
+          // <div className="w-full">
+          //   <img
+          //     src={`https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cm9vbXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60`}
+          //     alt=""
+          //     className="w-full aspect-auto"
+          //   />
+          // </div>
           <div>
             <img
-              src={`https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cm9vbXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60`}
+              src={image.url}
               alt=""
             />
           </div>
-        </div>
+            ))}
+        // </div>
       </div>
     );
   }
   //   if (!room) return;
-  return (
+  return (apartment && (
     <div className="bg-white">
       <Navbar />
       <div className="mt-4 bg-gray-100 px-8 pt-4">
-        <h1 className="text-2xl font-bold">title</h1>
+        <h1 className="text-2xl font-bold">{apartment._id}</h1>
         <a
           className=" mt-2 flex gap-1  font-semibold underline"
           target="_blank"
@@ -98,7 +119,7 @@ export default function SingleRoomPage() {
             <div className="">
               <img
                 className="aspect-square object-cover w-full transition duration-500 ease-in-out"
-                src={`https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cm9vbXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60`}
+                src={apartment.images[0]?.url}
                 alt="First Image"
               />
             </div>
@@ -106,14 +127,14 @@ export default function SingleRoomPage() {
               <div>
                 <img
                   className="aspect-square object-cover transition duration-500 ease-in-out"
-                  src={`https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cm9vbXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60`}
+                  src={apartment.images[1]?.url}
                   alt="Second Image"
                 />
               </div>
               <div className="relative top-2">
                 <img
                   className="aspect-square object-cover transition duration-500 ease-in-out"
-                  src={`https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cm9vbXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60`}
+                  src={apartment.images[2]?.url}
                   alt="Third Image"
                 />
               </div>
@@ -142,20 +163,23 @@ export default function SingleRoomPage() {
           </button>
         </div>
 
-        {/* <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] mt-4 gap-4">
-        <div>
-          <div className="my-2">
-            <h2 className="font-semibold text-xl">description</h2>
-            <p>{room.description}</p>
-          </div>
-          <p>check-in: {place.checkIn}</p>
-          <p>check-out: {place.checkOut}</p>
-          <p>maximum guests: {place.maxGuest}</p>
+        <div className="border bg-white rounded-2xl shadow">
+            <div className="text-center text-2xl font-bold p-2">price:$ per night</div>
+            <div className="rounded-2xl overflow-hidden border m-2">
+                <div className="flex border">
+                <div className=" px-4 py-2">
+                <label>check-in</label>
+                    <input type="date" value={meeting} onChange={(ev)=>setMeeting(ev.target.value)}/>
+                </div>
+                <div className="border"></div>
+                </div>
+                
+            </div>
+            
+            <button onClick={submitHandler} className="bg-primary rounded-full w-full mt-3  p-2 text-white">
+                Apartment Request
+            </button>
         </div>
-        <div>
-          <BookingWidget place={room} />
-        </div>
-      </div> */}
 
         <div className="bg-white -mx-8 px-6 mt-4 border-t">
           <div className="font-semibold text-xl">Extra info</div>
@@ -163,6 +187,6 @@ export default function SingleRoomPage() {
         </div>
       </div>
       <Footer />
-    </div>
+    </div>)
   );
 }

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const configureAxios = () => {
-  axios.defaults.baseURL = "http://localhost:5000/api"; // your base URL
 
   // Configure Axios to send cookies
   axios.defaults.withCredentials = true;

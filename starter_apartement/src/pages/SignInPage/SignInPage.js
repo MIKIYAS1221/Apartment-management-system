@@ -35,11 +35,11 @@ export const SignIn = () => {
     login(email, password)
       .then((data) => {
         console.log("User logged in successfully");
-        console.log(data);
         setSignedInUser(data.data);
+        console.log(data)
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("loggedInUser", JSON.stringify(data.data));
-        navigate("/home");
+        navigate("/available-apartments");
       })
       .catch((error) => {
         const random = Math.random().toString(36).substring(7);

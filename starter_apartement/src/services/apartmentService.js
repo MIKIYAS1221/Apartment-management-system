@@ -37,7 +37,7 @@ export const deleteApartment = async (ApartmentId) => {
 };
 
 export const freeApartment = async () => {
-  return await axios.get(`${BASE_URL}/apartments/free`).then((response) => {
+  return await axios.get(`${BASE_URL}/apartments/free/apartment`).then((response) => {
     return response.data;
   });
 }

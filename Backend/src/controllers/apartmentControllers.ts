@@ -134,7 +134,11 @@ export const getFreeApartments = async (
   next: NextFunction
 ) => {
   try {
-    const apartments: IApartment[] = await Apartment.find({isOccupied: false});
+    const apartments = await Apartment.find({available: true});
+    if(!apartments){
+      return res.status(404).json({ success: false, message: 'No free apartments' });
+    }
+
     res.status(200).json({ success: true, data: apartments });
   } catch (error) {
     res.status(400).json({ success: false, data: (error as Error).message });

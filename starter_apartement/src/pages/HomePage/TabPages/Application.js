@@ -4,6 +4,8 @@ import TabItem from "../components/TabItem";
 import { useRecoilState } from "recoil";
 import Navbar from "../../LandingPage/components/Navbar";
 import Footer from "../../LandingPage/components/Footer";
+import PendingRequest from "./applicationPages/PendingRequest";
+import AcceptedRequest from "./applicationPages/AcceptedRequest";
 
 const Applications = () => {
   const [activeTab, setActiveTab] = useState("Pending");
@@ -43,7 +45,7 @@ const Applications = () => {
       <Navbar />
       <div className="flex flex-col h-full">
         <div className="px-4 pt-8">
-          <h2 className="text-xl font-bold">My Applications </h2>
+          <h2 className="text-xl font-bold">Apartment Request </h2>
         </div>
         <nav className="flex mt-8 border-b border-gray-300">
           <SubNavItem tabName="Pending" Icon={Clock} count={""} />
@@ -82,6 +84,7 @@ const Applications = () => {
                   <h2 class="text-3xl font-bold text-neutral">
                     Pending display
                   </h2>
+                  <PendingRequest />
                 </div>
               </div>
             )}
@@ -92,6 +95,7 @@ const Applications = () => {
                     <h2 class="text-3xl font-bold text-neutral">
                       Accepted display
                     </h2>
+                    <AcceptedRequest />
                   </div>
                 </div>
               </div>

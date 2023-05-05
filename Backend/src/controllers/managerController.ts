@@ -3,6 +3,7 @@ import User, { IUser } from "../models/User";
 import { LeaseAgreement, ILeaseAgreement } from "../models/LeaseAgreement";
 import Apartment, { IApartment } from "../models/apartment";
 import ApartmentRequest, { IApartmentRequest } from "../models/registerRequest";
+import Mentainance, { IMentainance } from "../models/mentainance";
 
 
 // get all tenants
@@ -93,7 +94,9 @@ export const acceptApartmentRequest = async (
       user: user._id,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
+      rent: apartment.price
     };
+    console.log(lease)
     const newLease = await LeaseAgreement.create(lease) as ILeaseAgreement;
     user.isTenant = true;
     await user.save();
@@ -156,3 +159,47 @@ export const deleteLeaseAgreement = async (
     })
   }
 }
+
+// get all apartment requests
+export const getAllApartmentRequests = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const apartmentRequests: IApartmentRequest[] = await ApartmentRequest.find().populate("user").populate("apartment");
+    res.status(200).json({ success: true, data: apartmentRequests });
+  } catch (error) {
+    res.status(400).json({ success: false, data: (error as Error).message });
+  }
+}
+
+// get all accepted apartment requests
+export const getAllAcceptedApartmentRequests = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const apartmentRequests: IApartmentRequest[] = await ApartmentRequest.find({status: "accepted"});
+    res.status(200).json({ success: true, data: apartmentRequests });
+  } catch (error) {
+    res.status(400).json({ success: false, data: (error as Error).message });
+  }
+}
+
+// get all rejected apartment requests
+export const getAllRejectedApartmentRequests = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const apartmentRequests: IApartmentRequest[] = await ApartmentRequest.find({status: "rejected"});
+    res.status(200).json({ success: true, data: apartmentRequests });
+  } catch (error) {
+    res.status(400).json({ success: false, data: (error as Error).message });
+  }
+}
+
+
