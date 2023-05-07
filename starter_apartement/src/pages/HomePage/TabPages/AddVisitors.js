@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from "../../LandingPage/components/Navbar";
-import Footer from "../../LandingPage/components/Footer";
 
 const AddVisitors = () => {
   const [visitorName, setVisitorName] = useState('');
@@ -13,7 +11,6 @@ const AddVisitors = () => {
 
   return (
     <>
-      <Navbar />
       <div className="bg-cover bg-center p-10">
         <h2 className="text-center mb-10 text-lg font-bold leading-10 text-neutral-900">Visitors</h2>
         <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
@@ -42,7 +39,6 @@ const AddVisitors = () => {
           </button>
         </form>
       </div>
-      <Footer />
     </>
   );
 };

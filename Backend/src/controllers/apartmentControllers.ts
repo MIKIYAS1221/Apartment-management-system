@@ -48,8 +48,6 @@ export const createApartment = async (req: Request, res: Response, next: NextFun
 
       const myCloud = await cloudinary.v2.uploader.upload(filePath, {
         folder: 'Apartment',
-        width: 150,
-        crop: 'scale',
       });
        fs.unlink(filePath, (err) => {
         if (err) throw err;
@@ -152,7 +150,10 @@ export const getOccupiedApartments = async (
   next: NextFunction
 ) => {
   try {
-    const apartments: IApartment[] = await Apartment.find({isOccupied: true});
+    const apartments: IApartment[] = await Apartment.find({available: false});
+    if(!apartments){
+      return res.status(404).json({ success: false, message: 'No occupied apartments' });
+    }
     res.status(200).json({ success: true, data: apartments });
   } catch (error) {
     res.status(400).json({ success: false, data: (error as Error).message });

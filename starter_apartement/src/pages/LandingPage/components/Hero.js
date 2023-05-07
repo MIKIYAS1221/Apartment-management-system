@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className="flex items-center justify-center py-10">
+    <div className="image flex items-center justify-center py-10">
       <div className="container px-4 mx-auto">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-2">
           <div className="flex flex-col items-start justify-center">

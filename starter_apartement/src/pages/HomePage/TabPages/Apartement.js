@@ -1,6 +1,4 @@
  import React, { useState } from 'react';
-import Navbar from "../../LandingPage/components/Navbar";
-import Footer from "../../LandingPage/components/Footer";
 import Modal from 'react-modal';
 import { TrashIcon, PencilIcon } from '@heroicons/react/solid';
 

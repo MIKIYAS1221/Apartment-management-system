@@ -43,7 +43,7 @@ export const freeApartment = async () => {
 }
 
 export const occupiedApartment = async () => {
-  return await axios.get(`${BASE_URL}/apartments/occupied`).then((response) => {
+  return await axios.get(`${BASE_URL}/apartments/occupied/apartment`).then((response) => {
     return response.data;
   });
 }

@@ -16,10 +16,12 @@ export const SignIn = () => {
 
   useEffect(() => {
     document.title = "Sign In";
-    // const token = localStorage.getItem("authToken");
-    // if (token !== null) {
-    //     navigate("/home");
-    // }
+    const token = localStorage.getItem("authToken");
+    if (token !== null) {
+      console.log("User already logged in");
+      console.log("Token: ", token);
+        navigate("/home");
+    }
   }, [navigate]);
 
   const removeError = (id) => {
@@ -36,7 +38,6 @@ export const SignIn = () => {
       .then((data) => {
         console.log("User logged in successfully");
         setSignedInUser(data.data);
-        console.log(data)
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("loggedInUser", JSON.stringify(data.data));
         navigate("/available-apartments");

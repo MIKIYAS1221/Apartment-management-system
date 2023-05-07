@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { loggedInUserState } from "../../../recoil_state";
-import Footer from "../../LandingPage/components/Footer";
-import Navbar from "../../LandingPage/components/Navbar";
+
 
 
 export const Profile = () => {
@@ -50,7 +49,6 @@ export const Profile = () => {
 
   return (
     <>
-    <Navbar />
       <form className="px-16 pt-16 mb-16">
         <div className="space-y-12">
           <div className="pb-12 border-b border-gray-900/10">
@@ -315,7 +313,6 @@ export const Profile = () => {
           </button>
         </div>
       </form>
-          <Footer />
 
     </>
   );

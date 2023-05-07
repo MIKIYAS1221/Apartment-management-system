@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import Navbar from "../../LandingPage/components/Navbar";
-import Footer from "../../LandingPage/components/Footer";
 import Modal from "react-modal";
 import { TrashIcon, PencilIcon } from "@heroicons/react/solid";
 import { tenantListState } from "../../../recoil_state";
@@ -97,7 +95,6 @@ const TenantList = () => {
 
   return (
     <>
-      <Navbar />
       <div className="flex flex-col mt-8 min-h-screen" >
         <h2 className="text-lg font-large mb-4 flex justify-center">
          All Tenants
@@ -259,7 +256,6 @@ const TenantList = () => {
           </form>
         </Modal>
       </div>
-      <Footer />
     </>
   );
 };

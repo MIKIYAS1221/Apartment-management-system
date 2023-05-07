@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from "../../LandingPage/components/Navbar";
-import Footer from "../../LandingPage/components/Footer";
-
 const MaintenanceRequest = () => {
 const [requestType, setRequestType] = useState('');
 const [description, setDescription] = useState('');
@@ -21,7 +18,6 @@ console.log(`Submitted maintenance request: ${requestType}, ${description}, ${ro
 
 return (
   <>
-  <Navbar />
   <div className="bg-cover bg-center p-10">
     <h2 className="text-center mb-10 text-lg font-bold leading-10 text-neutral-900">Submit Maintenance Request</h2>
     <form onSubmit={handleSubmit}>
@@ -50,7 +46,6 @@ className="block w-full p-2 text-lg border rounded-md bg-gray-200 text-gray-700 
 {error && <div className="text-red-500">{error}</div>}
 </form>
 </div>
- <Footer />
   </>
 
 );

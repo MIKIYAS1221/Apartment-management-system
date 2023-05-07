@@ -22,10 +22,15 @@ export const signup = async (
   next: NextFunction
 ) => {
   try {
+    const {email} = req.body;
+    const checkuser  = await User.find ({email:email});
+    console.log(checkuser);
+    if(checkuser.length>0) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send("No files were uploaded.");
     }
-    const { email } = req.body;
 
     const avatar = (req.files as { [fieldname: string]: UploadedFile }).avatar;
     //upload image to local storage temporarily

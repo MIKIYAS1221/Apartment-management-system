@@ -7,10 +7,8 @@ const PendingRequest = () => {
     useEffect(() => {
         getAllRequests().then((data) => {
             setRequests(data.data)
-            console.log(data.data)
             })
             }, [])
-            console.log(requests)
   return (
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {requests.length>0 && requests.map((request) => (

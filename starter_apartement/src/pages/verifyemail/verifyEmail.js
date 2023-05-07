@@ -11,7 +11,7 @@ export default function VerifyEmail() {
   const [errors, setErrors] = useState([]);
   useEffect(() => {
     axios
-      .get(`/users/completesignup/${token}`)
+      .get(`http://localhost:5000/api/users/completesignup/${token}`)
       .then((response) => {
         navigate("/sign-in");
       })

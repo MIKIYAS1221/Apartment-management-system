@@ -96,7 +96,6 @@ export const acceptApartmentRequest = async (
       endDate: req.body.endDate,
       rent: apartment.price
     };
-    console.log(lease)
     const newLease = await LeaseAgreement.create(lease) as ILeaseAgreement;
     user.isTenant = true;
     await user.save();
@@ -181,7 +180,7 @@ export const getAllAcceptedApartmentRequests = async (
   next: NextFunction
 ) => {
   try {
-    const apartmentRequests: IApartmentRequest[] = await ApartmentRequest.find({status: "accepted"});
+    const apartmentRequests: IApartmentRequest[] = await ApartmentRequest.find({status: "accepted"}).populate("user").populate("apartment");
     res.status(200).json({ success: true, data: apartmentRequests });
   } catch (error) {
     res.status(400).json({ success: false, data: (error as Error).message });
@@ -195,11 +194,44 @@ export const getAllRejectedApartmentRequests = async (
   next: NextFunction
 ) => {
   try {
-    const apartmentRequests: IApartmentRequest[] = await ApartmentRequest.find({status: "rejected"});
+    const apartmentRequests: IApartmentRequest[] = await ApartmentRequest.find({status: "rejected"}).populate("user").populate("apartment");
+    console.log(apartmentRequests)
     res.status(200).json({ success: true, data: apartmentRequests });
   } catch (error) {
     res.status(400).json({ success: false, data: (error as Error).message });
   }
 }
 
+// get all lease agreements
+
+export const getAllLeaseAgreements = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const leaseAgreements: ILeaseAgreement[] = await LeaseAgreement.find().populate("user").populate("apartment");
+    if(!leaseAgreements){
+      res.status(400).json({success:true, data:'lease agreement not found'})
+    }
+    res.status(200).json({ success: true, data: leaseAgreements });
+  } catch (error) {
+    res.status(400).json({ success: false, data: (error as Error).message });
+  }
+}
+
+//get lease agreement by apartment id
+export const getLeaseAgreementByApartmentId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const leaseAgreement = await LeaseAgreement.findOne({apartment: req.body.apartment_id}).populate("user").populate("apartment");
+    res.status(200).json({ success: true, data: leaseAgreement });
+  }
+  catch (error) {
+    res.status(400).json({ success: false, data: (error as Error).message });
+  }
+}
 

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import Navbar from "../../LandingPage/components/Navbar";
-import Footer from "../../LandingPage/components/Footer";
 import Modal from "react-modal";
 import { TrashIcon, PencilIcon } from "@heroicons/react/solid";
 import { apartmentListState } from "../../../recoil_state";
@@ -21,17 +19,7 @@ const ApartmentList = () => {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [price, setPrice] = useState("");
-  // const [image, setImage] = useState([]);
-
-  // const [form, setForm] = useState({
-  //   _id: null,
-  //   type: "",
-  //   description: "",
-  //   status: "",
-  //   price: "",
-  //   image: "",
-  // });
-
+ 
   const [isEditing, setIsEditing] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [id, setId] = useState(null);
@@ -40,14 +28,11 @@ const ApartmentList = () => {
 
   const handleDelete = async (id) => {
     deleteApartment(id).then((data) => {
-      console.log(data);
+      getApartments().then((data) => {
+        setApartments(data.data);
+      });
     });
-    getApartments().then((data) => {
-      setApartments(data.data);
-    });
-    // setApartments((prevApartments) =>
-    //   prevApartments.filter((Apartment) => Apartment.id !== id)
-    // );
+  
   };
 
   const handleEdit = (id) => {
@@ -68,16 +53,7 @@ const ApartmentList = () => {
 
   };
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setForm((prevForm) => ({ ...prevForm, [name]: value }));
-  // };
 
-  // const handleImageChange = (event) => {
-  //   const { name, files } = event.target;
-  //   const url = URL.createObjectURL(files[0]);
-  //   setForm((prevForm) => ({ ...prevForm, [name]: url }));
-  // };
 
   const handleSubmit = async (event) => {
     const formData = new FormData();
@@ -89,26 +65,15 @@ const ApartmentList = () => {
     
     event.preventDefault();
     updateApartment(id,formData).then((data) => {
-      console.log(data);
+      getApartments().then((data) => {
+        setApartments(data.data);
+      });
     });
 
-    getApartments().then((data) => {
-      setApartments(data.data);
-    });
     
-
-    // setForm({
-    //   id: null,
-    //   type: "",
-    //   description: "",
-    //   status: "",
-    //   price: "",
-    //   image: "",
-    // });
     setIsEditing(false);
     setModalIsOpen(false);
-    // const data = await getApartments();
-    // setApartments(data);
+
   };
 
   useEffect(() => {
@@ -119,7 +84,6 @@ const ApartmentList = () => {
 
   return (
     <>
-      <Navbar />
       <div className="flex flex-col mt-8">
         <h2 className="text-lg font-large mb-4 flex justify-center">
           All Apartments
@@ -147,7 +111,7 @@ const ApartmentList = () => {
                   {Apartment.type}
                 </td>
                 <td className="border border-gray-400 px-4 py-2">
-                  {Apartment.description}
+                  {Apartment.description.slice(0, 47)}
                 </td>
                 <td className="border border-gray-400 px-4 py-2">
                   {Apartment.available ? "Available" : "Not Available"}
@@ -307,7 +271,6 @@ const ApartmentList = () => {
           </form>
         </Modal>
       </div>
-      <Footer />
     </>
   );
 };

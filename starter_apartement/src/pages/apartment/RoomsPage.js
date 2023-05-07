@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import Footer from "../LandingPage/components/Footer";
-import Navbar from "../LandingPage/components/Navbar";
 import { getApartment } from "../../services/apartmentService";
 import { useRecoilValue } from "recoil";
 import { loggedInUserState } from "../../recoil_state";
@@ -84,7 +82,6 @@ export default function SingleApartmentPage() {
   //   if (!room) return;
   return (apartment && (
     <div className="bg-white">
-      <Navbar />
       <div className="mt-4 bg-gray-100 px-8 pt-4">
         <h1 className="text-2xl font-bold">{apartment._id}</h1>
         <a
@@ -115,29 +112,40 @@ export default function SingleApartmentPage() {
         </a>
 
         <div className="relative">
-          <div className="rounded-2xl grid gap-2 grid-cols-1 md:grid-cols-[2fr_1fr] mt-2 overflow-hidden">
-            <div className="">
-              <img
-                className="aspect-square object-cover w-full transition duration-500 ease-in-out"
-                src={apartment.images[0]?.url}
-                alt="First Image"
-              />
-            </div>
-            <div className="overflow-hidden">
+          <div className="p-20 rounded-2xl grid gap-2 grid-cols-1 md:grid-cols-[2fr_2fr] mt-2 overflow-hidden">
+          <div className="overflow-hidden">
               <div>
                 <img
                   className="aspect-square object-cover transition duration-500 ease-in-out"
-                  src={apartment.images[1]?.url}
+                  src={apartment.images[0]?.url}
                   alt="Second Image"
                 />
               </div>
               <div className="relative top-2">
                 <img
                   className="aspect-square object-cover transition duration-500 ease-in-out"
-                  src={apartment.images[2]?.url}
+                  src={apartment.images[1]?.url}
                   alt="Third Image"
                 />
               </div>
+              
+            </div>
+            <div className="overflow-hidden">
+              <div>
+                <img
+                  className="aspect-square object-cover transition duration-500 ease-in-out"
+                  src={apartment.images[2]?.url}
+                  alt="Second Image"
+                />
+              </div>
+              <div className="relative top-2">
+                <img
+                  className="aspect-square object-cover transition duration-500 ease-in-out"
+                  src={apartment.images[3]?.url}
+                  alt="Third Image"
+                />
+              </div>
+              
             </div>
           </div>
 
@@ -163,7 +171,7 @@ export default function SingleApartmentPage() {
           </button>
         </div>
 
-        <div className="border bg-white rounded-2xl shadow">
+        <div className="border bg-white rounded-2xl shadow text-center">
             <div className="text-center text-2xl font-bold p-2">price:$ per night</div>
             <div className="rounded-2xl overflow-hidden border m-2">
                 <div className="flex border">
@@ -176,7 +184,7 @@ export default function SingleApartmentPage() {
                 
             </div>
             
-            <button onClick={submitHandler} className="bg-primary rounded-full w-full mt-3  p-2 text-white">
+            <button onClick={submitHandler} className="bg-primary rounded-full p-5 text-white ">
                 Apartment Request
             </button>
         </div>
@@ -186,7 +194,6 @@ export default function SingleApartmentPage() {
           <div>sgdubpibfapipiugeurubpib</div>
         </div>
       </div>
-      <Footer />
     </div>)
   );
 }

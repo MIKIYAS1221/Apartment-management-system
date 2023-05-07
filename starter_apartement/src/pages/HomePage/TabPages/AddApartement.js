@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import Navbar from "../../LandingPage/components/Navbar";
-import Footer from "../../LandingPage/components/Footer";
+
 import { apartmentListState } from "../../../recoil_state";
 import {
   saveApartment,
@@ -53,7 +52,6 @@ function AddApartment() {
 
   return (
     <>
-      <Navbar />
       <div className="flex justify-center items-center h-screen my-10">
         <div className="w-full max-w-md">
           <h2 className="text-lg font-medium mb-4">Add Apartment</h2>
@@ -140,7 +138,6 @@ function AddApartment() {
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

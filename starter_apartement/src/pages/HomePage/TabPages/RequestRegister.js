@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Clipboard, Clock, CheckCircle, XCircle } from "phosphor-react";
 import TabItem from "../components/TabItem";
 import { useRecoilState } from "recoil";
-import Navbar from "../../LandingPage/components/Navbar";
-import Footer from "../../LandingPage/components/Footer";
+
 import PendingRequest from "./applicationPages/PendingRequest";
 import AcceptedRequest from "./applicationPages/AcceptedRequest";
+import RejectedRequest from "./applicationPages/RejectedRequest";
 
-const Applications = () => {
+const RequestRegister = () => {
   const [activeTab, setActiveTab] = useState("Pending");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,7 +42,6 @@ const Applications = () => {
 
   return (
     <>
-      <Navbar />
       <div className="flex flex-col h-full">
         <div className="px-4 pt-8">
           <h2 className="text-xl font-bold">Apartment Request </h2>
@@ -107,6 +106,7 @@ const Applications = () => {
                     <h2 class="text-3xl font-bold text-neutral">
                       Rejected display
                     </h2>
+                    <RejectedRequest />
                   </div>
                 </div>
               </div>
@@ -114,9 +114,8 @@ const Applications = () => {
           </div>
         )}
       </div>
-      <Footer />
     </>
   );
 };
 
-export default Applications;
+export default RequestRegister;

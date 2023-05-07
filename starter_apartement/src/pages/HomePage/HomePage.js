@@ -16,7 +16,7 @@ import {
   loggedInUserState,
 } from "../../recoil_state";
 
-import Applications from "./TabPages/Application";
+import RegisterRequest from "./TabPages/RequestRegister";
 import AllApartmentss from "./TabPages/AllApartments";
 import Tenants from "./TabPages/Tenants";
 import RentedApartments from "./TabPages/RentedApartments";
@@ -25,8 +25,6 @@ import Home from "./TabPages/Home";
 import { Profile } from "./TabPages/Profile";
 import { useNavigate } from "react-router-dom";
 import TabItem from "./components/TabItem";
-import Footer from "../LandingPage/components/Footer";
-import Navbar from "../LandingPage/components/Navbar";
 import MaintenanceRequest from "./TabPages/MaintenanceRequest";
 import AddVisitors from "./TabPages/AddVisitors";
 
@@ -140,7 +138,7 @@ const HomePage = () => {
       <div className="ml-60 w-full overflow-auto">
         {activeTab === "Home" && <Home />}
         {activeTab === "Profile" && <Profile />}
-        {activeTab === "RegisterRequests" && <Applications />}
+        {activeTab === "Register Requests" && <RegisterRequest />}
         {activeTab === "AllApartments" && <AllApartmentss />}
         {activeTab === "RentedApartments" && <RentedApartments />}
         {activeTab === "Tenants" && <Tenants />}

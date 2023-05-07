@@ -24,6 +24,7 @@ function App() {
   return (
     <RecoilRoot>
       <BrowserRouter>
+      <Navbar/>
         <Routes>
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/verify-email/:token" element={<VerifyEmail />} />
@@ -53,6 +54,7 @@ function App() {
             }
           />
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </RecoilRoot>
   );

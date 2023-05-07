@@ -93,3 +93,19 @@ export const rejectMaintenanceRequest = async (id) => {
         }
         );
     }
+export const deleteLeaseAgreement = async (id, leaseId) => {
+    return axios.delete(`${BASE_URL}/manager/deleteLeaseAgreement/${id}`).then((response) => {
+        return response.data;
+    });
+}
+
+export const getLeaseAgreement = async (id) => {
+    return axios.get(`${BASE_URL}/manager/leaseAgreement`,{id}).then((response) => {
+        return response.data;
+    });
+}
+export const getAllLeaseAgreement = async () => {
+    return axios.get(`${BASE_URL}/manager/getAllLeaseAgreement`).then((response) => {
+        return response.data;
+    });
+}
